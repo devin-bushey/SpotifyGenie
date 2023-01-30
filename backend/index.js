@@ -51,7 +51,7 @@ const getSpotifyTrackLink = async (access_token, song, artist) => {
         'Authorization': `Bearer ${access_token}`
       }
     });
-    console.log("song: ", song, "artist: ", artist, "response:", response.data)
+    //console.log("song: ", song, "artist: ", artist, "response:", response.data)
     if (response.data.tracks.items.length > 0) {
       return response.data.tracks.items[0].external_urls.spotify;
     } else {
