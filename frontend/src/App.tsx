@@ -3,7 +3,7 @@ import './App.css';
 
 const App = () => {
   const [message, setMessage] = useState('');
-  const [response, setResponse] = useState('');
+  const [response, setResponse] = useState({message: '', link: ''});
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,11 +15,13 @@ const App = () => {
       body: JSON.stringify({ message }),
     })
     .then((res) => res.json())
-    .then((data) => setResponse(data.message));
+    .then((data) => setResponse({message: data.message, link: data.link}));
+    
   };
 
   return (
     <div className="App">
+      <p>What do you want to listen to?</p>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -28,7 +30,8 @@ const App = () => {
         />
         <button type="submit">Send</button>
       </form>
-      <p>{response}</p>
+      {response.message && <p>{response.message}</p>}
+      {response.link != '' && response.link != "No match found" ? <a href={response.link} target="_blank">Listen on Spotify!</a> : response.message && <p>Sorry, couldn't find a match on Spotify :(</p>}
     </div>
   );
 }
