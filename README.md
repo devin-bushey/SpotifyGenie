@@ -28,7 +28,7 @@ Runs on port 5001
 ```bash
 cd backend
 npm i
-node index.js
+nodemon index.js
 ```
 
 ## Contributing
