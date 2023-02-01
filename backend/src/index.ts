@@ -1,13 +1,14 @@
-const OpenAI = require("openai");
-const { Configuration, OpenAIApi } = OpenAI;
+const { Configuration, OpenAIApi } = require("openai");
 
-const express = require("express");
-const bodyParser = require('body-parser');
-const app = express();
-const cors = require("cors");
+import express from "express";
+import bodyParser from 'body-parser';
+import cors from "cors";
 require('dotenv').config('./.env');
+import axios from 'axios';
+
+
+const app = express();
 const port = 5001;
-const axios = require('axios');
 
 const configuration = new Configuration({
   organization: "org-0vIMGNLnWtexatzeEFq02gIp",
@@ -44,7 +45,7 @@ const getSpotifyAuth = async () => {
 
 }
 
-const getSpotifyTrackLink = async (access_token, song, artist) => {
+const getSpotifyTrackLink = async (access_token : string, song : string, artist : string) => {
   try {
     const response = await axios.get(`https://api.spotify.com/v1/search?q=track:${song}%20artist:${artist}&type=track`, {
       headers: {
@@ -62,7 +63,7 @@ const getSpotifyTrackLink = async (access_token, song, artist) => {
   }
 }
 
-app.post('/', async (req, res) => {
+app.post('/', async (req : any, res : any) => {
 
   const { message } = req.body;
   const response = await openai.createCompletion({
